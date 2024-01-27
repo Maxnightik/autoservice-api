@@ -39,12 +39,12 @@ const generateFutureDatesJson = () => {
     if (!currentMonthData || currentMonthData.month !== month) {
       currentMonthData = {
         month: month,
-        day: [{}],
+        day: {}, // Инициализация как пустой объект
       };
       jsonData.date.push(currentMonthData);
     }
 
-    currentMonthData.day[0][day] = generateRandomTimes();
+    currentMonthData.day[day] = generateRandomTimes(); // Непосредственное добавление данных
 
     currentDate.setDate(currentDate.getDate() + 1);
   }

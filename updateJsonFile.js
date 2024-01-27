@@ -39,17 +39,19 @@ export const updateJsonFile = async () => {
 
     schedule.forEach(item => {
       if (item.date) {
+        // Удаление текущего дня
         const currentMonthData = item.date.find(m => m.month === todayMonth);
-        if (currentMonthData && currentMonthData.day[0][todayDay]) {
-          delete currentMonthData.day[0][todayDay];
+        if (currentMonthData && currentMonthData.day[todayDay]) {
+          delete currentMonthData.day[todayDay];
         }
 
+        // Добавление нового дня
         let futureMonthData = item.date.find(m => m.month === futureMonth);
         if (!futureMonthData) {
-          futureMonthData = { month: futureMonth, day: [{}] };
+          futureMonthData = { month: futureMonth, day: {} };
           item.date.push(futureMonthData);
         }
-        futureMonthData.day[0][futureDay] = generateRandomTimes();
+        futureMonthData.day[futureDay] = generateRandomTimes();
       }
     });
 

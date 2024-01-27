@@ -10,6 +10,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/api', async (req, res) => {
   try {
@@ -20,6 +21,25 @@ app.get('/api', async (req, res) => {
     res.json(JSON.parse(data));
   } catch (err) {
     res.status(500).send('Ошибка при чтении файла: ' + err);
+  }
+});
+
+app.post('/api/orders', async (req, res) => {
+  const newOrder = req.body;
+
+  try {
+    const ordersFilePath = path.join(__dirname, 'orders.json');
+
+    let orders = await fs.readFile(ordersFilePath, 'utf8');
+    orders = JSON.parse(orders);
+
+    orders.push(newOrder);
+
+    await fs.writeFile(ordersFilePath, JSON.stringify(orders, null, 4), 'utf8');
+
+    res.status(200).send('Заказ успешно добавлен');
+  } catch (err) {
+    res.status(500).send('Ошибка при записи файла: ' + err);
   }
 });
 
