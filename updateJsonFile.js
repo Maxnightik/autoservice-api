@@ -39,13 +39,13 @@ export const updateJsonFile = async () => {
 
     schedule.forEach(item => {
       if (item.date) {
-        // Удаление текущего дня
+        // Видалення поточного дня
         const currentMonthData = item.date.find(m => m.month === todayMonth);
         if (currentMonthData && currentMonthData.day[todayDay]) {
           delete currentMonthData.day[todayDay];
         }
 
-        // Добавление нового дня
+        // Додавання нового дня
         let futureMonthData = item.date.find(m => m.month === futureMonth);
         if (!futureMonthData) {
           futureMonthData = { month: futureMonth, day: {} };
@@ -56,8 +56,8 @@ export const updateJsonFile = async () => {
     });
 
     await fs.writeFile(jsonFilePath, JSON.stringify(schedule, null, 4), 'utf8');
-    console.log('Файл успешно обновлен.');
+    console.log('Файл успішно оновлено.');
   } catch (err) {
-    console.error('Ошибка при работе с файлом:', err);
+    console.error('Помилка під час роботи з файлом:', err);
   }
 };
