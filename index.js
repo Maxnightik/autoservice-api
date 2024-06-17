@@ -20,7 +20,7 @@ app.get('/api', async (req, res) => {
     );
     res.json(JSON.parse(data));
   } catch (err) {
-    res.status(500).send('Ошибка при чтении файла: ' + err);
+    res.status(500).send('Помилка під час читання файлу: ' + err);
   }
 });
 
@@ -37,14 +37,17 @@ app.post('/api/orders', async (req, res) => {
 
     await fs.writeFile(ordersFilePath, JSON.stringify(orders, null, 4), 'utf8');
 
-    res.status(200).send('Заказ успешно добавлен');
+    res.status(200).send('
+Zakaz uspishno dodano
+22 / 5 000
+Замовлення успішно додано');
   } catch (err) {
-    res.status(500).send('Ошибка при записи файла: ' + err);
+    res.status(500).send('Помилка при записі файлу: ' + err);
   }
 });
 
 updateJsonFile();
 
 app.listen(port, () => {
-  console.log(`Сервер запущен на http://localhost:${port}`);
+  console.log(`Сервер запущено на http://localhost:${port}`);
 });
