@@ -37,10 +37,7 @@ app.post('/api/orders', async (req, res) => {
 
     await fs.writeFile(ordersFilePath, JSON.stringify(orders, null, 4), 'utf8');
 
-    res.status(200).send('
-Zakaz uspishno dodano
-22 / 5 000
-Замовлення успішно додано');
+     res.status(200).send('Замовлення успішно додано');
   } catch (err) {
     res.status(500).send('Помилка при записі файлу: ' + err);
   }
